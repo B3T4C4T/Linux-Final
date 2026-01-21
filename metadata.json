@@ -1,0 +1,5 @@
+{
+  "name": "PriceScout - AI Powered Product Search",
+  "description": "A high-performance product search engine that efficiently scrapes data from major retailers like Amazon, Walmart, and Target using Google's Gemini AI.",
+  "requestFramePermissions": []
+}
