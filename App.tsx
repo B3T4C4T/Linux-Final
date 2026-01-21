@@ -1,7 +1,7 @@
 
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { Store, Product } from './types';
-import { INITIAL_STORES } from './constants';
+import { INITIAL_STORES, STORE_CONFIGS } from './constants';
 import { GeminiService } from './services/geminiService';
 import StoreFilter from './components/StoreFilter';
 import ProductCard from './components/ProductCard';
@@ -256,35 +256,35 @@ const App: React.FC = () => {
       {/* --- SITE FOOTER --- */}
       <footer className="bg-white border-t border-gray-200 py-16 mt-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
             <div className="col-span-1 md:col-span-2">
               <h4 className="font-bold text-gray-900 mb-5 uppercase text-xs tracking-widest">Advanced Price Intelligence</h4>
               <p className="text-gray-500 text-sm leading-relaxed max-w-md">
                 PriceScout leverages Gemini 3.0 with Search Grounding to simulate highly efficient virtual scrapers. 
-                Our engine aggregates data from major retailers and local grocery chains.
+                The engine aggregates data from major retailers and local grocery chains.
               </p>
             </div>
             <div>
               <h4 className="font-bold text-gray-900 mb-5 uppercase text-xs tracking-widest">Marketplaces</h4>
               <ul className="text-gray-500 text-sm space-y-3">
-                <li><span className="flex items-center gap-2 font-medium">Amazon</span></li>
-                <li><span className="flex items-center gap-2 font-medium">Walmart</span></li>
-                <li><span className="flex items-center gap-2 font-medium">Target</span></li>
-                <li><span className="flex items-center gap-2 font-medium">Best Buy</span></li>
-                <li><span className="flex items-center gap-2 font-medium">Grocery & Pharma</span></li>
+                {Object.entries(STORE_CONFIGS).map(([store, config]) => (
+                  <li key={store}>
+                    <a 
+                      href={`https://www.${config.domain}`} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 font-medium hover:text-blue-600 transition-colors"
+                    >
+                      <i className={`${config.icon} w-5 text-center`}></i>
+                      {store}
+                    </a>
+                  </li>
+                ))}
               </ul>
-            </div>
-            <div>
-              <h4 className="font-bold text-gray-900 mb-5 uppercase text-xs tracking-widest">Connect</h4>
-              <div className="flex gap-5">
-                <a href="#" className="text-gray-400 hover:text-blue-600 text-2xl transition-all hover:scale-110"><i className="fa-brands fa-github"></i></a>
-                <a href="#" className="text-gray-400 hover:text-blue-600 text-2xl transition-all hover:scale-110"><i className="fa-brands fa-twitter"></i></a>
-                <a href="#" className="text-gray-400 hover:text-blue-600 text-2xl transition-all hover:scale-110"><i className="fa-brands fa-discord"></i></a>
-              </div>
             </div>
           </div>
           <div className="pt-10 border-t border-gray-100 text-center text-gray-400 text-xs tracking-wide">
-            &copy; 2024 PriceScout Intelligence. Simplified for rapid product comparison.
+            &copy; {new Date().getFullYear()} PriceScout Intelligence. Simplified for rapid product comparison.
           </div>
         </div>
       </footer>
